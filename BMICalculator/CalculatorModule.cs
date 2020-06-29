@@ -9,15 +9,28 @@ namespace BMICalculator
 
 		public double CalculateBMIForHeightAndWeight(double? heightFeet, double? heightInches, double? weightPounds)
 		{
-			if (!heightFeet.HasValue || heightFeet.Value <= 0)
+			if (!heightFeet.HasValue)
+			{
+				throw new NullReferenceException("heightFeet");
+			}
+			if (heightFeet.Value <= 0)
 			{
 				throw new Exception(String.Format("Invalid Height Feet {0}", heightFeet.Value));
 			}
-			if (!heightInches.HasValue || heightInches.Value > 11 || heightInches.Value < 0)
+
+			if (!heightInches.HasValue)
+			{
+				throw new NullReferenceException("heightInches");
+			}
+			if (!weightPounds.HasValue)
+			{
+				throw new NullReferenceException("weightPounds");
+			}
+			if (heightInches.Value > 11 || heightInches.Value < 0)
 			{
 				throw new Exception(String.Format("Invalid Height Inches {0}", heightInches.Value));
 			}
-			if (!weightPounds.HasValue || weightPounds.Value <= 0)
+			if (weightPounds.Value <= 0)
 			{
 				throw new Exception(String.Format("Invalid Weight Pounds {0}", weightPounds.Value));
 			}
@@ -33,7 +46,7 @@ namespace BMICalculator
 			catch (Exception ex)
 			{
 
-				throw new Exception(String.Format("Unable to calculate BMI for Height Feet {0}, Height Inches {1}, Weight Pounds {2}", heightFeet, heightInches, weightPounds), ex);
+				throw new Exception(String.Format("Unable to calculate BMI for Height Feet {0}, Height Inches {1}, Weight Pounds {2}", heightFeet.Value, heightInches.Value, weightPounds.Value), ex);
 			}			
 		}
 
